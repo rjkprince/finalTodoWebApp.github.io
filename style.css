@@ -191,6 +191,7 @@ body {
   #header-title {
     font-size: 40px;
     margin-top: 10px;
+    margin-bottom: -40px;
   }
   #header-para {
     font-size: 16px;
