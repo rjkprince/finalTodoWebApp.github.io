@@ -59,12 +59,34 @@ body {
   box-shadow: 1px 2px 10px rgb(255, 255, 255);
 
   border-radius: 5px;
-  overflow: auto;
+
   background-color: #fff;
   z-index: 3;
   position: relative;
   margin-left: auto;
   margin-right: auto;
+}
+.todo-tasks {
+  max-height: 200px;
+  overflow: auto;
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #e8fd6d;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(2, 196, 255);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 .todoTask {
   display: flex;
@@ -141,7 +163,8 @@ body {
 }
 .arrow-up {
   padding-top: 20px;
-  padding-bottom: 20px;
+  padding-bottom: 0px;
+  margin-bottom: -30px;
   cursor: pointer;
   color: rgb(3, 250, 155);
   font-size: 26px;
@@ -191,7 +214,6 @@ body {
   #header-title {
     font-size: 40px;
     margin-top: 10px;
-    margin-bottom: -40px;
   }
   #header-para {
     font-size: 16px;
