@@ -165,6 +165,44 @@ function createTodo(todo) {
   check.classList.add('fas', 'fa-check');
   checkBox.appendChild(check);
   todoTask.appendChild(checkBox);
+
+  let desc = document.createElement('div');
+  desc.classList.add('desc');
+  let todoDesc = document.createElement('p');
+  todoDesc.classList.add('todoDesc');
+  todoDesc.innerText = todo;
+  desc.appendChild(todoDesc);
+  let cut = document.createElement('i');
+  cut.classList.add('fas', 'fa-times', 'cut');
+
+  desc.appendChild(cut);
+
+  let dlt = document.createElement('i');
+  dlt.classList.add('far', 'fa-trash-alt', 'dlt');
+
+  desc.appendChild(dlt);
+
+  todoTask.appendChild(desc);
+  // saving to Backend
+  let cardData = {
+    id: todoTask.id,
+    cardpara: todo,
+    pendingCheck: pendingCheck,
+  };
+
+  let xhttp = new XMLHttpRequest();
+  xhttp.open(
+    'POST',
+    'https://5ee2489c8b27f30016094881.mockapi.io/todos',
+    'true'
+  );
+  xhttp.onreadystatechange = function () {
+    if (this.readyState === 4) {
+    }
+  };
+  xhttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+  xhttp.send(JSON.stringify(cardData));
+
   checkBox.addEventListener('click', function () {
     if (pendingCheck) {
       todoTasks.appendChild(todoTask);
@@ -207,16 +245,7 @@ function createTodo(todo) {
       );
     }
   });
-  let desc = document.createElement('div');
-  desc.classList.add('desc');
-  let todoDesc = document.createElement('p');
-  todoDesc.classList.add('todoDesc');
-  todoDesc.innerText = todo;
-  desc.appendChild(todoDesc);
-  let cut = document.createElement('i');
-  cut.classList.add('fas', 'fa-times', 'cut');
 
-  desc.appendChild(cut);
   cut.addEventListener('click', function () {
     todoTask.remove();
     let xhttp = new XMLHttpRequest();
@@ -235,10 +264,7 @@ function createTodo(todo) {
       document.getElementById('msg').style.display = 'block';
     }
   });
-  let dlt = document.createElement('i');
-  dlt.classList.add('far', 'fa-trash-alt', 'dlt');
 
-  desc.appendChild(dlt);
   dlt.addEventListener('click', function () {
     todoTask.remove();
     let xhttp = new XMLHttpRequest();
@@ -257,26 +283,7 @@ function createTodo(todo) {
       document.getElementById('msg').style.display = 'block';
     }
   });
-  todoTask.appendChild(desc);
-  // saving to Backend
-  let cardData = {
-    id: todoTask.id,
-    cardpara: todo,
-    pendingCheck: pendingCheck,
-  };
 
-  let xhttp = new XMLHttpRequest();
-  xhttp.open(
-    'POST',
-    'https://5ee2489c8b27f30016094881.mockapi.io/todos',
-    'true'
-  );
-  xhttp.onreadystatechange = function () {
-    if (this.readyState === 4) {
-    }
-  };
-  xhttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-  xhttp.send(JSON.stringify(cardData));
   return todoTask;
 }
 function todoCreateHandler() {
