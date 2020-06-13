@@ -80,19 +80,14 @@ function getCard() {
           }
         });
         todoTask.appendChild(desc);
-        console.log(pendingCheck1);
-        if (pendingCheck1 == true) {
+
+        if (pendingCheck1) {
           todoPending.appendChild(todoTask);
-          console.log(pendingCheck1);
         } else {
           todoTasks.appendChild(todoTask);
-          console.log(pendingCheck1);
         }
         checkBox.addEventListener('click', function () {
           if (pendingCheck1) {
-            todoTasks.appendChild(todoTask);
-            pendingCheck1 = false;
-
             let xhttp = new XMLHttpRequest();
             xhttp.open(
               'PUT',
@@ -102,6 +97,8 @@ function getCard() {
             );
             xhttp.onreadystatechange = function () {
               if (this.readyState === 4) {
+                todoTasks.appendChild(todoTask);
+                pendingCheck1 = false;
               }
             };
             xhttp.setRequestHeader(
@@ -110,12 +107,10 @@ function getCard() {
             );
             xhttp.send(
               JSON.stringify({
-                pendingCheck: 'false',
+                pendingCheck: false,
               })
             );
           } else {
-            todoPending.appendChild(todoTask);
-            pendingCheck1 = true;
             let xhttp = new XMLHttpRequest();
             xhttp.open(
               'PUT',
@@ -125,6 +120,8 @@ function getCard() {
             );
             xhttp.onreadystatechange = function () {
               if (this.readyState === 4) {
+                todoPending.appendChild(todoTask);
+                pendingCheck1 = true;
               }
             };
             xhttp.setRequestHeader(
@@ -156,7 +153,7 @@ function createTodo(todo) {
   document.getElementById('msg').style.display = 'none';
   let todoTask = document.createElement('div');
   todoTask.classList.add('todoTask');
-  todoTask.id = 'todo' + new Date().getTime();
+
 
   let pendingCheck = true;
   let checkBox = document.createElement('div');
@@ -185,7 +182,7 @@ function createTodo(todo) {
   todoTask.appendChild(desc);
   // saving to Backend
   let cardData = {
-    id: todoTask.id,
+
     cardpara: todo,
     pendingCheck: pendingCheck,
   };
@@ -203,11 +200,10 @@ function createTodo(todo) {
   xhttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
   xhttp.send(JSON.stringify(cardData));
 
+  let xhr=new XMLHttpRequest();
+ 
   checkBox.addEventListener('click', function () {
     if (pendingCheck) {
-      todoTasks.appendChild(todoTask);
-      pendingCheck = false;
-
       let xhttp = new XMLHttpRequest();
       xhttp.open(
         'PUT',
@@ -216,6 +212,8 @@ function createTodo(todo) {
       );
       xhttp.onreadystatechange = function () {
         if (this.readyState === 4) {
+          todoTasks.appendChild(todoTask);
+          pendingCheck = false;
         }
       };
       xhttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
@@ -225,8 +223,6 @@ function createTodo(todo) {
         })
       );
     } else {
-      todoPending.appendChild(todoTask);
-      pendingCheck = true;
       let xhttp = new XMLHttpRequest();
       xhttp.open(
         'PUT',
@@ -235,6 +231,8 @@ function createTodo(todo) {
       );
       xhttp.onreadystatechange = function () {
         if (this.readyState === 4) {
+          todoPending.appendChild(todoTask);
+          pendingCheck = true;
         }
       };
       xhttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
@@ -247,7 +245,6 @@ function createTodo(todo) {
   });
 
   cut.addEventListener('click', function () {
-    todoTask.remove();
     let xhttp = new XMLHttpRequest();
     xhttp.open(
       'DELETE',
@@ -266,7 +263,6 @@ function createTodo(todo) {
   });
 
   dlt.addEventListener('click', function () {
-    todoTask.remove();
     let xhttp = new XMLHttpRequest();
     xhttp.open(
       'DELETE',
