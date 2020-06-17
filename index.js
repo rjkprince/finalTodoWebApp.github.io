@@ -10,7 +10,7 @@ var logout = document.getElementById('logout');
 
 logout.addEventListener('click', function () {
   localStorage.setItem('login', false);
-  location.assign('/index.html');
+  location.assign('./index.html');
 });
 loginStatus = JSON.parse(loginStatus);
 if (loginStatus == true) {
