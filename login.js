@@ -30,7 +30,7 @@ login.addEventListener('click', function (e) {
       }
       if (exist) {
         if (pass == password.value) {
-          window.location.assign('/index.html');
+          window.location.assign('./index.html');
           localStorage.setItem('login', true);
         } else wrongPass.style.display = 'flex';
       } else {
